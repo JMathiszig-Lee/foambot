@@ -20,7 +20,7 @@ def limit_handled(cursor):
         except tweepy.RateLimitError:
             time.sleep(15 * 60)
 
-twitacct = "MSF_uk"
+twitacct = "TheBMA"
 
 for status in tweepy.Cursor(api.user_timeline, id=twitacct).items(5):
     print status.text
