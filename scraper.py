@@ -31,6 +31,5 @@ for status in tweepy.Cursor(api.user_timeline, id=twitacct).items(5):
     print max_id
     file.write(encodedtweet)
     file.write("\n")
-    #process_status(status)
 
 file.close()

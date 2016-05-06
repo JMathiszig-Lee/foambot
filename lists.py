@@ -1,3 +1,4 @@
+## this harvest members from a twitter lists and puts them in a database for later harvesting
 import tweepy
 import keys
 import mysql.connector as mariadb
@@ -18,15 +19,19 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
 
+## timer to stop us pissing off twitter too much
 def limit_handled(cursor):
     while True:
         try:
             yield cursor.next()
         except tweepy.RateLimitError:
+            print "hit API limit"
             time.sleep(15 * 60)
 
+listslug = "foamed" #the name of the list
+listowner = "ivorkovic" #name of the owner
 
-for user in tweepy.Cursor(api.list_members, slug="foamed", owner_screen_name="sandnsurf" ).items(5):
+for user in tweepy.Cursor(api.list_members, slug=listslug, owner_screen_name=listowner ).items(3200):
     print user.screen_name
     print user.id
     twitterid = user.id
@@ -42,7 +47,6 @@ for user in tweepy.Cursor(api.list_members, slug="foamed", owner_screen_name="sa
             print "inserted"
         except mariadb.Error as error:
             print("Error: {}".format(error))
-    encodedtweet = unicode(user.screen_name).encode('utf-8')
 
 mariadb_connection.commit()
 cursor2.close()
