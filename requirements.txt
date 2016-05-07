@@ -1,6 +1,2 @@
 https://cdn.mysql.com/Downloads/Connector-Python/mysql-connector-python-2.1.3.tar.gz
-oauthlib==1.1.1
-requests==2.10.0
-requests-oauthlib==0.6.1
-six==1.10.0
 tweepy==3.5.0
