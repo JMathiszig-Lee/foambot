@@ -2,7 +2,6 @@
 import tweepy
 import keys
 import mysql.connector as mariadb
-import time
 
 mariadb_connection = mariadb.connect(user=keys.dbuser, password=keys.dbpass, database=keys.database)
 cursor2 = mariadb_connection.cursor(buffered=True) #buffer select query or you'll get unread erros
@@ -29,14 +28,14 @@ def limit_handled(cursor):
             time.sleep(15 * 60)
 
 numtweets = 0
-cursor2.execute("SELECT twithandle, userkey, since_id, max_id FROM foamites WHERE started=1 ORDER BY lastscraped ASC LIMIT 100") ##select 100 people who have gone through the start script
+cursor2.execute("SELECT twithandle, userkey, since_id, max_id FROM foamites WHERE started=1 ORDER BY lastscraped ASC LIMIT 40") ##select 40 people who have gone through the start script
 for row in cursor2:
     twitacct = row[0]
     dbid = row[1]
     sinceid = row[2]
     maxid = row[3]
 
-    for status in tweepy.Cursor(api.user_timeline, id=twitacct, max_id=maxid).items(1000): # get a thousand tweets
+    for status in tweepy.Cursor(api.user_timeline, id=twitacct, max_id=maxid).items(80): # get 80 tweets (3200 limit)
         tweet = status.text
         tweet = tweet.replace('\n','') #strip out all the line breaks that make text file horrible
 
@@ -61,8 +60,8 @@ for row in cursor2:
             print("Error: {}".format(error))
         global numtweets
         numtweets += 1
-        print numtweets
 
+print numtweets
 file.close()
 mariadb_connection.commit()
 cursor2.close()
