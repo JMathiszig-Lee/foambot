@@ -1,11 +1,12 @@
 ## initialises each tweet in the database with 1 tweet to get the right tweet ids
 import tweepy
 import keys
-import mysql.connector as mariadb
+import sqlite3
 
-mariadb_connection = mariadb.connect(user=keys.dbuser, password=keys.dbpass, database=keys.database)
-cursor2 = mariadb_connection.cursor(buffered=True) #buffer select query or you'll get unread erros
-cursor3 = mariadb_connection.cursor() #unbuffered for update as otherwise it only updates the first row
+
+conn = sqlite3.connect('foambot.sqlite')
+cursor2 = conn.cursor() #buffer select query or you'll get unread erros
+cursor3 = conn.cursor() #unbuffered for update as otherwise it only updates the first row
 
 
 consumer_key = keys.consumer_key
@@ -45,12 +46,12 @@ for row in cursor2:
         maxid = tweetID - 1
         sinceid = tweetID
     #update with since_id, max_id and started
-    try:
-        cursor3.execute("UPDATE foamites SET since_id = %s, max_id = %s, started = 1 WHERE userkey = %s ", (sinceid, maxid, dbid))
-    except mariadb.Error as error:
-        print("Error: {}".format(error))
+    #try:
+    cursor3.execute("UPDATE foamites SET since_id = ?, max_id = ?, started = 1 WHERE userkey = ? ", (sinceid, maxid, dbid))
+    #except mariadb.Error as error:
+    #    print("Error: {}".format(error))
 
 file.close()
-mariadb_connection.commit()
+conn.commit()
 cursor2.close()
 cursor3.close()
