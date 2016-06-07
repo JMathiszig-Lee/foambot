@@ -8,16 +8,15 @@ conn = sqlite3.connect(sqlite_file)
 c =  conn.cursor()
 
 #sql to create the table
-sqlite_command = """  
-CREATE TABLE foamites(
-userkey INTEGER PRIMARY KEY AUTO INCREMENT,
-twithandle
-twitterid
-since_id
-max_id
-started
-lastscraped
-);"""
+sqlite_command = """
+    CREATE TABLE foamites(
+    userkey INTEGER PRIMARY KEY,
+    twithandle TEXT,
+    twitterid INTEGER,
+    since_id INTEGER,
+    max_id INTEGER,
+    started INTEGER DEFAULT 0 ,
+    lastscraped NUMERIC DEFAULT CURRENT_TIMESTAMP);"""
 
 #create the table
 c.execute(sqlite_command)
