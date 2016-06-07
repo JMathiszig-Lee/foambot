@@ -7,6 +7,7 @@ import sqlite3
 #mariadb_connection = mariadb.connect(user=keys.dbuser, password=keys.dbpass, database=keys.database)
 #c = mariadb_connection.cursor()
 
+
 conn = sqlite3.connect('foambot.sqlite')
 c = conn.cursor()
 
