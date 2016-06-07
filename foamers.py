@@ -3,7 +3,7 @@ import sqlite3
 conn = sqlite3.connect('Scraper/foambot.sqlite')
 c = conn.cursor()
 
-c.execute("SELECT COUNT(*) * from foamites")
+c.execute("SELECT COUNT(*), * FROM foamites")
 result = c.fetchone()
 
 number_of_rows = result[0]
