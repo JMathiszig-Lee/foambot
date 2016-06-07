@@ -7,7 +7,7 @@ import sqlite3
 #mariadb_connection = mariadb.connect(user=keys.dbuser, password=keys.dbpass, database=keys.database)
 #c = mariadb_connection.cursor()
 
-conn = sqlite3.connect('foambot.db')
+conn = sqlite3.connect('foambot.sqlite')
 c = conn.cursor()
 
 
@@ -59,5 +59,5 @@ for user in tweepy.Cursor(api.list_members, slug=listslug, owner_screen_name=lis
         except mariadb.Error as error:
             print("Error: {}".format(error))
 
-mariadb_connection.commit()
+c.commit()
 c.close()

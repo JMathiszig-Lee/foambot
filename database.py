@@ -1,7 +1,7 @@
 #file to create database table
 import sqlite3
 
-sqlite_file = 'foambot.sqlite' #name of databasefile
+sqlite_file = 'Scraper/foambot.sqlite' #name of databasefile
 
 #connect to the database (and create it)
 conn = sqlite3.connect(sqlite_file)
@@ -20,6 +20,7 @@ sqlite_command = """
 
 #create the table
 c.execute(sqlite_command)
+
 
 
 #commit changes and close connection
