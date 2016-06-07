@@ -59,5 +59,5 @@ for user in tweepy.Cursor(api.list_members, slug=listslug, owner_screen_name=lis
         except mariadb.Error as error:
             print("Error: {}".format(error))
 
-c.commit()
-c.close()
+conn.commit()
+conn.close()
