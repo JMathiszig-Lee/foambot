@@ -47,7 +47,7 @@ for row in cursor2:
         sinceid = tweetID
     #update with since_id, max_id and started
     #try:
-    cursor3.execute("UPDATE foamites SET since_id = ?, max_id = ?, started = 1 WHERE userkey = ? ", (sinceid, maxid, dbid))
+        cursor3.execute("UPDATE foamites SET since_id = ?, max_id = ?, started = 1 WHERE userkey = ? ", (sinceid, maxid, dbid))
     #except mariadb.Error as error:
     #    print("Error: {}".format(error))
 
