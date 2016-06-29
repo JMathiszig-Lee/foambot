@@ -37,7 +37,7 @@ for row in cursor2:
 
     for status in tweepy.Cursor(api.user_timeline, id=twitacct).items(1): # get a single tweet so start and max ids start properly
 
-        try
+        try:
             tweet = status.text
             tweet = tweet.replace('\n','') #strip out all the line breaks that make text file horrible
             print tweet
@@ -49,7 +49,7 @@ for row in cursor2:
             tweetID = status.id
             maxid = tweetID - 1
             sinceid = tweetID
-            
+
             #update with since_id, max_id and started
             try:
                 cursor3.execute("UPDATE foamites SET since_id = ?, max_id = ?, started = 1 WHERE userkey = ? ", (sinceid, maxid, dbid))
@@ -57,7 +57,7 @@ for row in cursor2:
                 print("Error: {}".format(error)) #print update error
 
         except TweepError as err:
-            print("Error: {}".format(err))
+            print("Error: {}".format(err)) #print tweepy error
 
 
 file.close()
