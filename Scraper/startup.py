@@ -59,16 +59,15 @@ for row in cursor2:
             except tweepy.TweepError as err:
                 print("Error: {}".format(err)) #print tweepy error
 
-    except tweepy.RateLimitError:
-        print "sleeping"
-        time.sleep(15 * 60)
-
     except tweepy.TweepError as err:
         print("Error: {}".format(err)) #print tweepy error
         #print err
         error = format(err)
         param, err_code = error.split("= ",1)
         print err_code
+        if err_code = 429:
+            print "sleeping"
+            time.sleep(15 * 60)
         print dbid, twitacct
         # err.args[0][0]['code']
         print "failed"
