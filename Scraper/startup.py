@@ -24,7 +24,7 @@ file = open("tweets.txt", "a") #using append rather then write so we don't delet
 def limit_handled(cursor):
     while True:
         try:
-            yield cursor.next()
+            yield Cursor.next()
         except tweepy.RateLimitError:
             time.sleep(15 * 60)
 
@@ -56,16 +56,15 @@ for row in cursor2:
                 except sqlite3.Error as error:
                     print("Error: {}".format(error)) #print update error
 
-            except tweepy.TweepError as err:
-                print("Error: {}".format(err)) #print tweepy error
+    except tweepy.RateLimitError:
+        print "sleeping"
+        time.sleep(15 * 60)
 
     except tweepy.TweepError as err:
         print("Error: {}".format(err)) #print tweepy error
         print dbid, twitacct
         print "failed"
-    except tweepy.RateLimitError:
-        print "sleeping"
-        time.sleep(15 * 60)
+
 file.close()
 conn.commit()
 cursor2.close()
