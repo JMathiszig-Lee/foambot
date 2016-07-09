@@ -56,6 +56,7 @@ for row in cursor2:
                 except sqlite3.Error as error:
                     print("Error: {}".format(error)) #print update error
 
+
     except tweepy.RateLimitError:
         print "sleeping"
         time.sleep(15 * 60)
