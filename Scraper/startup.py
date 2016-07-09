@@ -2,7 +2,7 @@
 import tweepy
 import keys
 import sqlite3
-
+import time
 
 conn = sqlite3.connect('foambot.sqlite')
 cursor2 = conn.cursor() #buffer select query or you'll get unread erros
