@@ -56,7 +56,7 @@ for row in cursor2:
             except sqlite3.Error as error:
                 print("Error: {}".format(error)) #print update error
 
-        except TweepError as err:
+        except tweepy.TweepError as err:
             print("Error: {}".format(err)) #print tweepy error
 
 
