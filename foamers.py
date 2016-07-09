@@ -11,7 +11,7 @@ c.execute("SELECT COUNT(*) FROM foamites")
 number_of_rows=c.fetchone()
 print number_of_rows
 
-c.execute("SELECT twithandle, started FROM foamites LIMIT 10") ##select 100 people who haven't yet been scraped
+c.execute("SELECT twithandle, started FROM foamites") ##select 100 people who haven't yet been scraped
 for row in c:
     twithandle = row[0]
     started = row[1]
