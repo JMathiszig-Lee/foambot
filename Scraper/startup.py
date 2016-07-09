@@ -35,7 +35,7 @@ for row in cursor2:
     print twitacct #print the twitter handle so we can tell who's changed their name
 
     try:
-        for status in tweepy.Cursor(api.user_timeline, id=twitacct).items(1): # get a single tweet so start and max ids start properly
+        for status in limit_handled(tweepy.Cursor(api.user_timeline, id=twitacct).items(1)): # get a single tweet so start and max ids start properly
 
             try:
                 tweet = status.text
