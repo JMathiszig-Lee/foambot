@@ -61,12 +61,11 @@ for row in cursor2:
 
     except tweepy.TweepError as err:
         print("Error: {}".format(err)) #print tweepy error
-        #error_code = err.message[0]['code']
-        #print error_code
-        print err.message[0]['code']
         print dbid, twitacct
         print "failed"
-
+    except tweepy.RateLimitError:
+        print "sleeping"
+        time.sleep(15 * 60)
 file.close()
 conn.commit()
 cursor2.close()
