@@ -66,7 +66,8 @@ for row in cursor2:
     except tweepy.TweepError as err:
         print("Error: {}".format(err)) #print tweepy error
         #print err
-        param, err_code = err.split("= ",1)
+        error = err
+        param, err_code = error.split("= ",1)
         print err_code
         print dbid, twitacct
         # err.args[0][0]['code']
