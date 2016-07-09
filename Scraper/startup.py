@@ -61,6 +61,8 @@ for row in cursor2:
 
     except tweepy.TweepError as err:
         print("Error: {}".format(err)) #print tweepy error
+        print dbid
+        print "failed"
 
 file.close()
 conn.commit()
