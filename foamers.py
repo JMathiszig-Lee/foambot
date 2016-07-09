@@ -2,13 +2,14 @@ import sqlite3
 import csv
 
 conn = sqlite3.connect('Scraper/foambot.sqlite')
-c = conn.cursor()
+cursor = conn.cursor()
 
 #myfile = open('foamers.csv', 'wb')
 #wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
-
-c.execute("SELECT twithandle, started FROM foamites LIMIT 10") ##select 100 people who haven't yet been scraped
-for row in c:
+print "about to query"
+cursor.execute("SELECT twithandle, started FROM foamites LIMIT 10") ##select 100 people who haven't yet been scraped
+print "query done"
+for row in cursor:
     twithandle = row[0]
     started = row[1]
 
