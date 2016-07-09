@@ -34,31 +34,33 @@ for row in cursor2:
     dbid = row[1]
     print twitacct #print the twitter handle so we can tell who's changed their name
 
+    try:
+        for status in tweepy.Cursor(api.user_timeline, id=twitacct).items(1): # get a single tweet so start and max ids start properly
 
-    for status in tweepy.Cursor(api.user_timeline, id=twitacct).items(1): # get a single tweet so start and max ids start properly
-
-        try:
-            tweet = status.text
-            tweet = tweet.replace('\n','') #strip out all the line breaks that make text file horrible
-            print tweet
-
-            encodedtweet = unicode(tweet).encode('utf-8') #encode tweet so it writes to the txt file
-            file.write(encodedtweet)
-            file.write("\n")
-
-            tweetID = status.id
-            maxid = tweetID - 1
-            sinceid = tweetID
-
-            #update with since_id, max_id and started
             try:
-                cursor3.execute("UPDATE foamites SET since_id = ?, max_id = ?, started = 1 WHERE userkey = ? ", (sinceid, maxid, dbid))
-            except sqlite3.Error as error:
-                print("Error: {}".format(error)) #print update error
+                tweet = status.text
+                tweet = tweet.replace('\n','') #strip out all the line breaks that make text file horrible
+                print tweet
 
-        except tweepy.TweepError as err:
-            print("Error: {}".format(err)) #print tweepy error
+                encodedtweet = unicode(tweet).encode('utf-8') #encode tweet so it writes to the txt file
+                file.write(encodedtweet)
+                file.write("\n")
 
+                tweetID = status.id
+                maxid = tweetID - 1
+                sinceid = tweetID
+
+                #update with since_id, max_id and started
+                try:
+                    cursor3.execute("UPDATE foamites SET since_id = ?, max_id = ?, started = 1 WHERE userkey = ? ", (sinceid, maxid, dbid))
+                except sqlite3.Error as error:
+                    print("Error: {}".format(error)) #print update error
+
+            except tweepy.TweepError as err:
+                print("Error: {}".format(err)) #print tweepy error
+
+    except tweepy.TweepError as err:
+        print("Error: {}".format(err)) #print tweepy error
 
 file.close()
 conn.commit()
