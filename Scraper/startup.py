@@ -32,7 +32,7 @@ cursor2.execute("SELECT twithandle, userkey FROM foamites WHERE started=0 ORDER 
 for row in cursor2:
     twitacct = row[0]
     dbid = row[1]
-    print twithandle #print the twitter handle so we can tell who's changed their name
+    print twitacct #print the twitter handle so we can tell who's changed their name
 
 
     for status in tweepy.Cursor(api.user_timeline, id=twitacct).items(1): # get a single tweet so start and max ids start properly
